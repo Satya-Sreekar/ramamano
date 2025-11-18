@@ -1861,7 +1861,7 @@ footer::before {
         width: 56px;
         height: 56px;
         bottom: 20px;
-        right: 20px;
+        right: 76px; /* Moved by button width (56px) towards center from 20px */
         font-size: 28px;
     }
     
