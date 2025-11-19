@@ -15,7 +15,7 @@
     <header id="header">
         <div class="container header-container">
             <div class="logo">Rama<span>Mano</span> IT Services</div>
-            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="mobile-menu" aria-label="Toggle navigation menu"><i class="fas fa-bars"></i></div>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="hero-ctas">
                     <a href="#contact" class="btn"><span>Get in Touch</span></a>
-                    <a href="https://wa.me/919762076999?text=Hi%20RamaMano%20IT%20Services,%20I%20would%20like%20to%20know%20more%20about%20your%20services" class="btn btn-whatsapp" target="_blank">
+                    <a href="https://wa.me/919762076999?text=Hi%20RamaMano%20IT%20Services,%20I%20would%20like%20to%20know%20more%20about%20your%20services" class="btn btn-whatsapp" target="_blank" aria-label="Contact us on WhatsApp">
                         <i class="fab fa-whatsapp"></i> <span>Contact on WhatsApp</span>
                     </a>
                 </div>
@@ -126,9 +126,9 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <!-- Placeholder for an image -->
-                    <div>
-                        <p>Leadership Team Image</p>
+                    <div class="image-placeholder-styled">
+                        <i class="fas fa-users-cog"></i>
+                        <div class="placeholder-pattern"></div>
                     </div>
                 </div>
             </div>
@@ -506,9 +506,9 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <!-- Placeholder for an image -->
-                    <div>
-                        <p>Pharmacy & Life Sciences Image</p>
+                    <div class="image-placeholder-styled pharmacy-bg">
+                        <i class="fas fa-pills"></i>
+                        <div class="placeholder-pattern"></div>
                     </div>
                 </div>
             </div>
@@ -662,10 +662,10 @@
                 </div>
                 <div class="contact-form">
                     <form id="inquiryForm">
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <input type="text" placeholder="Subject" required>
-                        <textarea placeholder="Your Message" required></textarea>
+                        <input type="text" placeholder="Your Name" required aria-label="Your Name">
+                        <input type="email" placeholder="Your Email" required aria-label="Your Email">
+                        <input type="text" placeholder="Subject" required aria-label="Subject">
+                        <textarea placeholder="Your Message" required aria-label="Your Message"></textarea>
                         <button type="submit" class="btn"><span>Send Message</span></button>
                     </form>
                 </div>
@@ -702,10 +702,10 @@
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
                     <ul>
-                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-                        <li><a href="https://wa.me/919762076999" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="https://wa.me/919762076999" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
                     </ul>
                 </div>
             </div>
@@ -716,7 +716,7 @@
     </footer>
 
     <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/919762076999?text=Hi%20RamaMano%20IT%20Services,%20I%20would%20like%20to%20know%20more%20about%20your%20services" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/919762076999?text=Hi%20RamaMano%20IT%20Services,%20I%20would%20like%20to%20know%20more%20about%20your%20services" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 

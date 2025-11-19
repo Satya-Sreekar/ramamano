@@ -40,6 +40,21 @@ document.querySelectorAll('nav ul li a').forEach(link => {
     });
 });
 
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    const nav = document.querySelector('nav ul');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (nav.classList.contains('show') && 
+        !nav.contains(e.target) && 
+        !mobileMenu.contains(e.target)) {
+        nav.classList.remove('show');
+        const icon = mobileMenu.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+});
+
 // Scroll Animation
 const observerOptions = {
     threshold: 0.1,
