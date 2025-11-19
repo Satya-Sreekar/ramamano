@@ -443,6 +443,13 @@ function showResults() {
     
     // Clear saved progress
     localStorage.removeItem('assessmentProgress');
+
+    // Update WhatsApp Link
+    const message = `Hi RamaMano IT Services, I completed the security assessment and scored ${assessmentScore}/100. I would like to discuss my security needs.`;
+    const whatsappLink = document.getElementById('contactExpert');
+    if (whatsappLink) {
+        whatsappLink.href = `https://wa.me/919762076999?text=${encodeURIComponent(message)}`;
+    }
 }
 
 // Download PDF Report
@@ -490,11 +497,6 @@ document.addEventListener('click', (e) => {
         } else {
             alert('PDF generation library not loaded. Please refresh the page and try again.');
         }
-    }
-    
-    if (e.target.id === 'contactExpert' || e.target.closest('#contactExpert')) {
-        const message = `Hi RamaMano IT Services, I completed the security assessment and scored ${assessmentScore}/100. I would like to discuss my security needs.`;
-        window.open(`https://wa.me/919762076999?text=${encodeURIComponent(message)}`, '_blank');
     }
 });
 
@@ -622,6 +624,7 @@ function updateParallax() {
     });
     
     // Parallax sections
+    /* Disabled to prevent section overlap issues
     const parallaxSections = document.querySelectorAll('.parallax-section');
     parallaxSections.forEach(section => {
         const rect = section.getBoundingClientRect();
@@ -631,6 +634,7 @@ function updateParallax() {
             section.style.transform = `translateY(${yPos}px)`;
         }
     });
+    */
     
     // Parallax slow elements
     const slowElements = document.querySelectorAll('.parallax-slow');

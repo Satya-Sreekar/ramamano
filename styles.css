@@ -88,18 +88,13 @@ header.scrolled {
 }
 
 .logo {
-    font-size: 28px;
-    font-weight: 800;
-    background: var(--gradient-3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
 }
 
-.logo span {
-    color: var(--accent-green);
-    -webkit-text-fill-color: var(--accent-green);
+.logo img {
+    max-height: 50px;
+    width: auto;
 }
 
 nav ul {
@@ -116,6 +111,7 @@ nav ul li a {
     border-radius: 8px;
     transition: all 0.3s ease;
     position: relative;
+    white-space: nowrap;
 }
 
 nav ul li a::before {
@@ -367,16 +363,25 @@ section {
 }
 
 /* About Section */
+#about {
+    padding-bottom: 20px;
+}
+
+/* Services Section */
+#services {
+    padding-top: 20px;
+}
+
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: center;
-    margin-bottom: 80px;
+    margin-bottom: 20px;
 }
 
 .expertise-highlights {
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 .expertise-grid {
@@ -1332,6 +1337,12 @@ footer::before {
     margin-bottom: 50px;
 }
 
+.footer-logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
 .footer-column h3 {
     margin-bottom: 25px;
     font-size: 1.3rem;
@@ -1396,6 +1407,119 @@ footer::before {
     overflow: hidden;
     z-index: 1;
     pointer-events: none;
+}
+
+/* Floating Rectangles Animation */
+.floating-rectangles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+}
+
+.floating-rectangles li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    animation: floatRect 25s linear infinite;
+    bottom: -150px;
+}
+
+.floating-rectangles li:nth-child(1) {
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+.floating-rectangles li:nth-child(2) {
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.floating-rectangles li:nth-child(3) {
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.floating-rectangles li:nth-child(4) {
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.floating-rectangles li:nth-child(5) {
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.floating-rectangles li:nth-child(6) {
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.floating-rectangles li:nth-child(7) {
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.floating-rectangles li:nth-child(8) {
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.floating-rectangles li:nth-child(9) {
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.floating-rectangles li:nth-child(10) {
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+
+@keyframes floatRect {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 20%; /* Slight rounding as they go up */
+    }
 }
 
 .particle {
@@ -1894,11 +2018,27 @@ footer::before {
     }
 }
 
+/* Tablet / Small Laptop Optimization */
+@media (max-width: 1200px) {
+    nav ul {
+        gap: 5px;
+    }
+    
+    nav ul li a {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .header-container {
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .mobile-menu {
+        display: block;
     }
     
     nav ul {
@@ -1984,15 +2124,7 @@ footer::before {
     }
 }
 
-@media (max-width: 480px) {
-    .mobile-menu {
-        display: block;
-    }
-    
-    .logo {
-        font-size: 22px;
-    }
-    
+@media (max-width: 480px) {    
     .hero h1 {
         font-size: 2rem;
     }
