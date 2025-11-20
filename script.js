@@ -453,45 +453,226 @@ function showResults() {
 }
 
 // Download PDF Report
-document.addEventListener('click', (e) => {
+document.addEventListener('click', async (e) => {
     if (e.target.id === 'downloadReport' || e.target.closest('#downloadReport')) {
         if (typeof window.jspdf !== 'undefined') {
-            const { jsPDF } = window.jspdf;
+            const { jsPDF, GState } = window.jspdf;
             const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.width;
+            const pageHeight = doc.internal.pageSize.height;
+            const margin = 20;
+            const contentWidth = pageWidth - (margin * 2);
             
-            doc.setFontSize(20);
-            doc.text('Security Assessment Report', 20, 20);
+            // Load logo
+            const logoUrl = 'RamaManoLogo.png';
+            let logoData = null;
+            let logoRatio = 1;
             
-            doc.setFontSize(12);
-            doc.text(`Assessment Date: ${new Date().toLocaleDateString()}`, 20, 35);
-            doc.text(`Security Score: ${assessmentScore}/100`, 20, 45);
+            try {
+                await new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = logoUrl;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        logoData = canvas.toDataURL('image/png');
+                        logoRatio = img.width / img.height;
+                        resolve();
+                    };
+                    img.onerror = () => resolve();
+                });
+            } catch (err) {
+                console.error('Error loading logo:', err);
+            }
+
+            // Helper: Add Watermark
+            const addWatermark = () => {
+                if (logoData) {
+                    const wmWidth = 100;
+                    const wmHeight = wmWidth / logoRatio;
+                    const wmX = (pageWidth - wmWidth) / 2;
+                    const wmY = (pageHeight - wmHeight) / 2;
+                    
+                    try {
+                        if (GState) {
+                            doc.setGState(new GState({ opacity: 0.1 }));
+                            doc.addImage(logoData, 'PNG', wmX, wmY, wmWidth, wmHeight);
+                            doc.setGState(new GState({ opacity: 1.0 }));
+                        } else {
+                            // Fallback if GState not available
+                             doc.setDrawColor(230, 230, 230);
+                             doc.setTextColor(230, 230, 230);
+                             // Maybe skip image if we can't make it transparent to avoid blocking text
+                        }
+                    } catch (e) {
+                        console.warn('Watermark error:', e);
+                    }
+                }
+            };
             
-            let yPos = 60;
-            doc.setFontSize(14);
-            doc.text('Assessment Results:', 20, yPos);
-            yPos += 10;
+            // Helper: Add Header
+            const addHeader = (isFirstPage = true) => {
+                // Top blue bar
+                doc.setFillColor(41, 128, 185);
+                doc.rect(0, 0, pageWidth, 5, 'F');
+                
+                if (isFirstPage) {
+                    if (logoData) {
+                        const logoWidth = 40;
+                        const logoHeight = logoWidth / logoRatio;
+                        doc.addImage(logoData, 'PNG', margin, 15, logoWidth, logoHeight);
+                    }
+                    
+                    doc.setFontSize(24);
+                    doc.setTextColor(44, 62, 80);
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Security Assessment Report', pageWidth - margin, 30, { align: 'right' });
+                    
+                    // Date
+                    doc.setFontSize(10);
+                    doc.setFont(undefined, 'normal');
+                    doc.setTextColor(127, 140, 141);
+                    doc.text(`Date: ${new Date().toLocaleDateString()}`, pageWidth - margin, 40, { align: 'right' });
+                    
+                    // Divider
+                    doc.setDrawColor(200, 200, 200);
+                    doc.setLineWidth(0.5);
+                    doc.line(margin, 50, pageWidth - margin, 50);
+                } else {
+                     // Simple header for other pages
+                     doc.setFontSize(10);
+                     doc.setTextColor(150, 150, 150);
+                     doc.text('Security Assessment Report', pageWidth - margin, 15, { align: 'right' });
+                }
+            };
+            
+            // Helper: Add Footer
+            const addFooter = (pageNo) => {
+                const footerY = pageHeight - 20;
+                
+                // Divider line
+                doc.setDrawColor(200, 200, 200);
+                doc.setLineWidth(0.5);
+                doc.line(margin, footerY - 10, pageWidth - margin, footerY - 10);
+                
+                // Contact Info
+                doc.setFontSize(9);
+                doc.setTextColor(44, 62, 80);
+                doc.setFont(undefined, 'bold');
+                doc.text('RamaMano IT Services', margin, footerY);
+                
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(100, 100, 100);
+                const contactText = 'Uppal, Hyderabad | +91 9762076999 | contact@ramamano.com';
+                const textWidth = doc.getTextWidth(contactText);
+                doc.text(contactText, (pageWidth - textWidth) / 2, footerY + 5); // Centered contact info usually looks better in footer
+                
+                // Page number
+                doc.text(`Page ${pageNo}`, pageWidth - margin, footerY, { align: 'right' });
+                
+                // Bottom blue bar
+                doc.setFillColor(41, 128, 185);
+                doc.rect(0, pageHeight - 2, pageWidth, 2, 'F');
+            };
+
+            // --- Generate PDF Content ---
+            
+            let pageNo = 1;
+            addWatermark();
+            addHeader(true);
+            
+            let yPos = 70;
+            
+            // 1. Overall Score Box
+            doc.setFillColor(240, 248, 255); // AliceBlue
+            doc.setDrawColor(41, 128, 185);
+            doc.roundedRect(margin, yPos, contentWidth, 40, 3, 3, 'FD');
+            
+            doc.setFontSize(16);
+            doc.setTextColor(44, 62, 80);
+            doc.setFont(undefined, 'bold');
+            doc.text('Overall Security Score', margin + 10, yPos + 15);
+            
+            // Color code score
+            let scoreColor = [46, 204, 113]; // Green
+            let scoreText = "Excellent";
+            if (assessmentScore < 40) {
+                 scoreColor = [231, 76, 60]; // Red
+                 scoreText = "Critical";
+            } else if (assessmentScore < 60) {
+                 scoreColor = [230, 126, 34]; // Orange
+                 scoreText = "Basic";
+            } else if (assessmentScore < 80) {
+                 scoreColor = [241, 196, 15]; // Yellow/Orange
+                 scoreText = "Good";
+            }
+            
+            doc.setFontSize(28);
+            doc.setTextColor(...scoreColor);
+            doc.text(`${assessmentScore}/100`, pageWidth - margin - 10, yPos + 25, { align: 'right' });
             
             doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`Rating: ${scoreText}`, margin + 10, yPos + 30);
+            
+            yPos += 60;
+            
+            // 2. Detailed Results
+            doc.setFontSize(14);
+            doc.setTextColor(44, 62, 80);
+            doc.setFont(undefined, 'bold');
+            doc.text('Detailed Assessment Breakdown', margin, yPos);
+            yPos += 15;
+            
+            // Loop Questions
             assessmentQuestions.forEach((q, index) => {
-                if (yPos > 270) {
-                    doc.addPage();
-                    yPos = 20;
-                }
+                doc.setFontSize(11);
                 doc.setFont(undefined, 'bold');
-                doc.text(`Question ${index + 1}:`, 20, yPos);
-                yPos += 5;
-                doc.setFont(undefined, 'normal');
-                const questionLines = doc.splitTextToSize(q.question, 170);
-                doc.text(questionLines, 20, yPos);
-                yPos += questionLines.length * 5 + 3;
+                const qLines = doc.splitTextToSize(`${index + 1}. ${q.question}`, contentWidth);
+                const qHeight = qLines.length * 5;
                 
-                if (assessmentAnswers[index]) {
-                    doc.setFont(undefined, 'italic');
-                    doc.text(`Answer: ${assessmentAnswers[index].answer}`, 25, yPos);
-                    yPos += 5;
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal'); // Changed from italic for better readability
+                const ansText = assessmentAnswers[index] ? assessmentAnswers[index].answer : "Not Answered";
+                const aLines = doc.splitTextToSize(ansText, contentWidth - 15); // Padding for answer box
+                const aHeight = aLines.length * 5;
+                
+                const blockHeight = qHeight + aHeight + 20; // space for padding and margins
+                
+                // Check page break
+                if (yPos + blockHeight > pageHeight - 40) {
+                    addFooter(pageNo);
+                    doc.addPage();
+                    pageNo++;
+                    addWatermark();
+                    addHeader(false);
+                    yPos = 30;
                 }
-                yPos += 5;
+                
+                // Draw Question
+                doc.setTextColor(44, 62, 80);
+                doc.setFont(undefined, 'bold');
+                doc.text(qLines, margin, yPos);
+                yPos += qHeight + 3;
+                
+                // Draw Answer Box
+                doc.setFillColor(250, 250, 250);
+                doc.setDrawColor(230, 230, 230);
+                doc.roundedRect(margin, yPos - 4, contentWidth, aHeight + 8, 1, 1, 'FD');
+                
+                // Draw Answer Text
+                doc.setTextColor(80, 80, 80);
+                doc.setFont(undefined, 'normal');
+                // Add checkmark iconish char or just text
+                doc.text(aLines, margin + 5, yPos);
+                
+                yPos += aHeight + 15;
             });
+            
+            addFooter(pageNo);
             
             doc.save('security-assessment-report.pdf');
         } else {

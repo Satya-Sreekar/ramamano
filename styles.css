@@ -1,31 +1,44 @@
 :root {
-    --primary-blue: #2563eb;
-    --dark-navy: #1e293b;
+    /* Brand Colors derived from Logo */
+    --brand-navy: #0f2e5a;
+    --brand-blue: #0077b6;
+    --brand-cyan: #00b4d8;
+    --brand-green: #84cc16;
+
+    /* Functional Colors */
+    --primary-blue: var(--brand-blue);
+    --dark-navy: #020617;
     --light-gray: #f8fafc;
-    --accent-green: #10b981;
-    --primary: #2563eb;
-    --secondary: #1e293b;
-    --accent: #2563eb;
-    --accent-secondary: #10b981;
+    --accent-green: var(--brand-green);
+    
+    --primary: var(--brand-blue);
+    --secondary: var(--brand-navy);
+    --accent: var(--brand-cyan);
+    --accent-secondary: var(--brand-green);
+    
     --light: #f8fafc;
-    --dark: #1e293b;
+    --dark: var(--brand-navy);
     --text-primary: #0f172a;
-    --text-secondary: #64748b;
-    --success: #10b981;
+    --text-secondary: #475569;
+    --success: var(--brand-green);
     --whatsapp: #25D366;
+    
     --aws-orange: #FF9900;
     --azure-blue: #0078D4;
     --rackspace-red: #C40000;
     --multicloud-purple: #7C3AED;
-    --gradient-1: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-    --gradient-2: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    --gradient-3: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-    --gradient-hero: linear-gradient(135deg, #1e293b 0%, #2563eb 50%, #1e40af 100%);
-    --shadow-sm: 0 2px 8px rgba(37, 99, 235, 0.08);
-    --shadow-md: 0 4px 16px rgba(37, 99, 235, 0.12);
-    --shadow-lg: 0 10px 40px rgba(37, 99, 235, 0.15);
-    --shadow-xl: 0 20px 60px rgba(37, 99, 235, 0.2);
-    --glow-blue: 0 0 20px rgba(37, 99, 235, 0.3);
+    
+    /* Updated Gradients */
+    --gradient-1: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 100%);
+    --gradient-2: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-green) 100%);
+    --gradient-3: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-cyan) 50%, var(--brand-green) 100%);
+    --gradient-hero: linear-gradient(135deg, #020617 0%, var(--brand-navy) 50%, #1e3a8a 100%);
+    
+    --shadow-sm: 0 2px 8px rgba(15, 46, 90, 0.08);
+    --shadow-md: 0 4px 16px rgba(15, 46, 90, 0.12);
+    --shadow-lg: 0 10px 40px rgba(15, 46, 90, 0.15);
+    --shadow-xl: 0 20px 60px rgba(15, 46, 90, 0.2);
+    --glow-blue: 0 0 20px rgba(0, 180, 216, 0.3);
 }
 
 * {
@@ -128,7 +141,7 @@ nav ul li a::before {
 
 nav ul li a:hover {
     color: var(--primary-blue);
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(0, 119, 182, 0.1);
 }
 
 nav ul li a:hover::before {
@@ -167,8 +180,8 @@ nav ul li a:hover::before {
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(0, 119, 182, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(132, 204, 22, 0.1) 0%, transparent 50%);
     animation: pulse 15s ease-in-out infinite;
     background-image: 
         repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px);
@@ -189,7 +202,7 @@ nav ul li a:hover::before {
     font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: 24px;
     font-weight: 800;
-    background: linear-gradient(135deg, #ffffff 0%, #10b981 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #84cc16 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -230,7 +243,7 @@ nav ul li a:hover::before {
 .trust-badge:hover {
     background: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.2);
 }
 
 .trust-badge i {
@@ -403,7 +416,7 @@ section {
 .expertise-card:hover {
     transform: translateY(-10px) rotateY(5deg);
     box-shadow: var(--shadow-xl);
-    border-color: rgba(37, 99, 235, 0.3);
+    border-color: rgba(0, 119, 182, 0.3);
 }
 
 .expertise-card:hover .expertise-icon {
@@ -514,7 +527,7 @@ section {
 }
 
 .checklist-item:hover {
-    background: rgba(37, 99, 235, 0.05);
+    background: rgba(0, 119, 182, 0.05);
     transform: translateX(5px);
 }
 
@@ -797,12 +810,12 @@ section {
 .service-card:hover {
     transform: translateY(-10px) scale(1.02);
     box-shadow: var(--shadow-xl), var(--glow-blue);
-    border-color: rgba(37, 99, 235, 0.3);
+    border-color: rgba(0, 119, 182, 0.3);
 }
 
 .service-card:hover .service-icon {
     transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 119, 182, 0.4);
 }
 
 .service-card:hover .service-icon i {
@@ -1042,7 +1055,7 @@ section {
     outline: none;
     border-color: var(--primary-blue);
     background: white;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 4px rgba(0, 119, 182, 0.1);
 }
 
 .contact-form textarea {
@@ -1177,7 +1190,7 @@ section {
 
 .answer-option:hover {
     border-color: var(--primary-blue);
-    background: rgba(37, 99, 235, 0.05);
+    background: rgba(0, 119, 182, 0.05);
     transform: translateX(5px);
 }
 
@@ -1394,7 +1407,7 @@ footer::before {
     background: linear-gradient(90deg, var(--primary-blue), var(--accent-green));
     z-index: 10000;
     transition: width 0.1s ease;
-    box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+    box-shadow: 0 0 10px rgba(0, 119, 182, 0.5);
 }
 
 /* Animated Particle Background */
@@ -1524,10 +1537,10 @@ footer::before {
 
 .particle {
     position: absolute;
-    background: rgba(37, 99, 235, 0.4);
+    background: rgba(0, 119, 182, 0.4);
     border-radius: 50%;
     animation: float 20s infinite ease-in-out;
-    box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 0 10px rgba(0, 119, 182, 0.3);
 }
 
 .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
@@ -1573,7 +1586,7 @@ footer::before {
     right: -10%;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 119, 182, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     animation: pulse 8s ease-in-out infinite;
 }
@@ -1605,7 +1618,7 @@ footer::before {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 119, 182, 0.1), transparent);
     transition: left 0.5s ease;
 }
 
@@ -1822,7 +1835,7 @@ footer::before {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 119, 182, 0.05) 0%, transparent 70%);
     animation: rotate 30s linear infinite;
     will-change: transform;
 }
@@ -1865,7 +1878,7 @@ footer::before {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(37, 99, 235, 0.3);
+    background: rgba(0, 119, 182, 0.3);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s, opacity 0.6s;
     opacity: 0;
@@ -1890,10 +1903,10 @@ footer::before {
 /* Glow Pulse Animation */
 @keyframes glowPulse {
     0%, 100% {
-        box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        box-shadow: 0 0 20px rgba(0, 119, 182, 0.3);
     }
     50% {
-        box-shadow: 0 0 40px rgba(37, 99, 235, 0.6), 0 0 60px rgba(16, 185, 129, 0.3);
+        box-shadow: 0 0 40px rgba(0, 119, 182, 0.6), 0 0 60px rgba(132, 204, 22, 0.3);
     }
 }
 
@@ -1920,7 +1933,7 @@ footer::before {
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(0, 119, 182, 0.3) 0%, transparent 70%);
         pointer-events: none;
         z-index: 9999;
         transition: transform 0.1s ease;
@@ -1992,12 +2005,12 @@ footer::before {
     .service-card:hover {
         transform: translateY(-10px) scale(1.02);
         box-shadow: var(--shadow-xl), var(--glow-blue);
-        border-color: rgba(37, 99, 235, 0.3);
+        border-color: rgba(0, 119, 182, 0.3);
     }
 
     .service-card:hover .service-icon {
         transform: scale(1.1) rotate(5deg);
-        box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 119, 182, 0.4);
     }
     
     .btn:hover {
@@ -2008,13 +2021,13 @@ footer::before {
     .expertise-card:hover {
         transform: translateY(-10px) rotateY(5deg);
         box-shadow: var(--shadow-xl);
-        border-color: rgba(37, 99, 235, 0.3);
+        border-color: rgba(0, 119, 182, 0.3);
     }
 
     .trust-badge:hover {
         background: white;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 119, 182, 0.2);
     }
 }
 
@@ -2035,15 +2048,32 @@ footer::before {
     .header-container {
         flex-direction: row;
         justify-content: space-between;
+        /* Reduce padding on mobile header to align more to edges */
+        padding: 20px 10px; 
+    }
+
+    /* Make container full width in header to align to ends */
+    header .container {
+        width: 100%;
+        padding: 0 20px; /* Keep safety padding or reduce it */
     }
 
     .mobile-menu {
         display: block;
     }
     
-    nav ul {
+    nav {
+        /* Remove nav from flex flow on mobile so logo/menu align to ends */
         position: absolute;
         top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
+    }
+
+    nav ul {
+        position: relative; /* Changed from absolute */
+        top: auto;
         left: 0;
         right: 0;
         background: white;
@@ -2052,6 +2082,7 @@ footer::before {
         box-shadow: var(--shadow-md);
         display: none;
         gap: 0;
+        width: 100%; /* Ensure full width */
     }
     
     nav ul.show {
